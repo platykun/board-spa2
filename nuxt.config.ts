@@ -1,7 +1,9 @@
-const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
-const pkg = require('./package')
+import NuxtConfiguration from '@nuxt/config'
 
-module.exports = {
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
+const pkg = require('./package');
+
+const config: NuxtConfiguration = {
   mode: 'universal',
 
   /*
@@ -10,12 +12,12 @@ module.exports = {
   head: {
     title: pkg.name,
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      {charset: 'utf-8'},
+      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+      {hid: 'description', name: 'description', content: pkg.description}
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
       {
         rel: 'stylesheet',
         href:
@@ -27,7 +29,7 @@ module.exports = {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: {color: '#fff'},
 
   /*
    ** Global CSS
@@ -71,6 +73,7 @@ module.exports = {
     extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
+        if(config.module == null) return;
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
@@ -80,4 +83,6 @@ module.exports = {
       }
     }
   }
-}
+};
+
+export default config

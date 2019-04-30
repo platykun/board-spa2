@@ -1,70 +1,101 @@
 <template>
-  <v-layout column justify-center align-center>
-    <v-flex xs12 sm8 md6>
-      <div class="text-xs-center">
-        <logo />
-        <vuetify-logo />
-      </div>
-      <v-card>
-        <v-card-title class="headline"
-          >Welcome to the Vuetify + Nuxt.js template</v-card-title
-        >
-        <v-card-text>
-          <p>
-            Vuetify is a progressive Material Design component framework for
-            Vue.js. It was designed to empower developers to create amazing
-            applications.
-          </p>
-          <p>
-            For more information on Vuetify, check out the
-            <a href="https://vuetifyjs.com" target="_blank">documentation</a>.
-          </p>
-          <p>
-            If you have questions, please join the official
-            <a href="https://chat.vuetifyjs.com/" target="_blank" title="chat"
-              >discord</a
-            >.
-          </p>
-          <p>
-            Find a bug? Report it on the github
-            <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              title="contribute"
-              >issue board</a
-            >.
-          </p>
-          <p>
-            Thank you for developing with Vuetify and I look forward to bringing
-            more exciting features in the future.
-          </p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
+  <v-content>
+    <section>
+      <v-parallax src="/index_background.jpg" height="400">
+        <v-layout column align-center justify-center class="white--text">
+          <img src="/logo.png" height="200" />
+          <h1 class="white--text mb-2 display-1 text-xs-center">
+            Board Game Management
+          </h1>
+          <div class="subheading mb-3 text-xs-center">
+            遊んだボードゲームを記録するwebアプリケーション
           </div>
-          <hr class="my-3" />
-          <a href="https://nuxtjs.org/" target="_blank">Nuxt Documentation</a>
-          <br />
-          <a href="https://github.com/nuxt/nuxt.js" target="_blank"
-            >Nuxt GitHub</a
-          >
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" flat nuxt to="/inspire">Continue</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-flex>
-  </v-layout>
+          <v-btn class="accent mt-2" dark large to="/signup">
+            新規登録
+          </v-btn>
+        </v-layout>
+      </v-parallax>
+    </section>
+    <div class="container">
+      <div class="flex xs12 sm8 offset-sm2">
+        <h2>履歴</h2>
+        <v-card to="" class="ma-2">
+          <v-layout>
+            <v-flex xs2>
+              <v-img src="/usericon.png" contain></v-img>
+            </v-flex>
+            <v-flex xs10>
+              <v-card-text>
+                <div>
+                  <h4 class="headline">名前</h4>
+                </div>
+                <div>
+                  <h4 class="headline">ボードゲーム名</h4>
+                </div>
+                <div>
+                  <span class="grey--text">2019/04/29</span>
+                </div>
+                <v-spacer />
+                <div>
+                  <h4 class="grey--text">場所</h4>
+                </div>
+              </v-card-text>
+            </v-flex>
+          </v-layout>
+        </v-card>
+        <v-card to="" class="ma-2">
+          <v-layout>
+            <v-flex xs2>
+              <v-img src="/usericon.png" contain></v-img>
+            </v-flex>
+            <v-flex xs10>
+              <v-card-text>
+                <div>
+                  <h4 class="headline">名前</h4>
+                </div>
+                <div>
+                  <h4 class="headline">ボードゲーム名</h4>
+                </div>
+                <div>
+                  <span class="grey--text">2019/04/29</span>
+                </div>
+                <v-spacer />
+                <div>
+                  <h4 class="grey--text">場所</h4>
+                </div>
+              </v-card-text>
+            </v-flex>
+          </v-layout>
+        </v-card>
+        <v-card to="" class="ma-2">
+          <v-layout>
+            <v-flex xs2>
+              <v-img src="/usericon.png" contain></v-img>
+            </v-flex>
+            <v-flex xs10>
+              <v-card-text>
+                <div>
+                  <h4 class="headline">名前</h4>
+                </div>
+                <div>
+                  <h4 class="headline">ボードゲーム名</h4>
+                </div>
+                <div>
+                  <span class="grey--text">2019/04/29</span>
+                </div>
+                <v-spacer />
+                <div>
+                  <h4 class="grey--text">場所</h4>
+                </div>
+              </v-card-text>
+            </v-flex>
+          </v-layout>
+        </v-card>
+      </div>
+    </div>
+  </v-content>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
-
-export default {
-  components: {
-    Logo,
-    VuetifyLogo
-  }
-}
+export default {}
 </script>
