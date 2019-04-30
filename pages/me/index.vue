@@ -14,11 +14,11 @@
       <v-textarea outline name="comment" label="コメント" value=""></v-textarea>
       <h3>評価</h3>
       <div>
-        <v-icon color="amber lighten-1">grade</v-icon>
-        <v-icon>grade</v-icon>
-        <v-icon>grade</v-icon>
-        <v-icon>grade</v-icon>
-        <v-icon>grade</v-icon>
+        <v-icon color="amber lighten-1">star</v-icon>
+        <v-icon>star</v-icon>
+        <v-icon>star</v-icon>
+        <v-icon>star</v-icon>
+        <v-icon>star</v-icon>
       </div>
       <v-layout>
         <v-spacer />
