@@ -38,9 +38,6 @@
 </template>
 
 <script>
-// import FirestoreCollections from '../../plugins/firestoreCollections'
-// import { RecordUsecase.ts } from '../../plugins/usecase/RecordUsecase.ts'
-
 import { UserUsecase } from '../../plugins/usecase/UserUsecase'
 import { BoardgameUsecase } from '../../plugins/usecase/BoardgameUsecase'
 import { RecordUsecase } from '../../plugins/usecase/RecordUsecase'
@@ -53,37 +50,39 @@ export default {
       boardgame: '',
       comment: '',
       boardgames: ['hoge', 'piyo'],
-      loginUsers: [],
-      boardgameDataList: []
+      loginUserSnapshot: [],
+      boardgameSnapshot: []
     }
   },
   computed: {
     updateBoardgameList() {
       const boardgames = []
-      this.boardgameDataList.forEach(b => boardgames.push(b.name))
+      this.boardgameSnapshot.forEach(b => boardgames.push(b.data().name))
       return boardgames
     }
   },
   created() {
     // TODO 以下べたがきされているメールアドレスはログイン時のものを利用
-    this.loginUsers = UserUsecase.findUserByEmail('nagonago561@yahoo.co.jp')
-    this.boardgameDataList = BoardgameUsecase.findAll()
-    for (const boardgameData in this.boardgameDataList) {
-      this.boardgames.add(boardgameData.name)
+    this.loginUserSnapshot = UserUsecase.findUserByEmail(
+      'nagonago561@yahoo.co.jp'
+    )
+    this.boardgameSnapshot = BoardgameUsecase.findAll()
+    for (const boardgameRef in this.boardgameSnapshot) {
+      this.boardgames.add(boardgameRef.data().name)
     }
   },
   methods: {
     submitRecord() {
       // 選択されたボードゲームのオブジェクトを取得する
-      const boardGameRef = this.boardgameDataList.filter(
-        b => b.name === this.boardgame
+      const boardGameRef = this.boardgameSnapshot.filter(
+        b => b.data().name === this.boardgame
       )[0]
 
       const result = new RecordDto(
         boardGameRef,
         this.boardgame,
-        this.loginUsers[0],
-        this.loginUsers[0].name,
+        this.loginUserSnapshot[0],
+        this.loginUserSnapshot[0].data().name,
         this.comment,
         this.stars,
         new Date()

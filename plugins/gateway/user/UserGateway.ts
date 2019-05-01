@@ -11,7 +11,7 @@ export const allUsers = () => {
   usersCollections.get().then(querySnapshot => {
     querySnapshot.forEach(userSnapshot => {
       // @ts-ignore
-      userList.push(userSnapshot.data())
+      userList.push(userSnapshot)
     })
   })
 
@@ -31,7 +31,7 @@ export const findUserByEmail = (email: string) => {
       querySnapshot
         .forEach(userSnapshot => {
           // @ts-ignore
-          userList.push(userSnapshot.data())
+          userList.push(userSnapshot)
         })
     })
 

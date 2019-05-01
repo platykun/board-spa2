@@ -97,9 +97,9 @@ export default {
         // ボードゲームの参照を取得
         // doc
         //   .data()
-        //   .boardGameRef.get()
-        //   .then(boardGameRef => {
-        //     this.boardGame = boardGameRef.data()
+        //   .boardGameSnapshot.get()
+        //   .then(boardGameSnapshot => {
+        //     this.boardGame = boardGameSnapshot.data()
         //   })
         // const record = {
         //   boardGame: this.boardGame,

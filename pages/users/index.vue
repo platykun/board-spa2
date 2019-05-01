@@ -41,7 +41,7 @@ export default {
     }
   },
   created() {
-    this.userList = UserUsecase.findAll()
+    this.userList = UserUsecase.findAll().map(u => u.data())
   }
 }
 </script>

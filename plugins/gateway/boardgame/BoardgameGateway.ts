@@ -8,7 +8,7 @@ export const allBoardgames = () => {
   boardgameCollections.get().then(querySnapshot => {
     querySnapshot.forEach(boardgameSnapshot => {
       // @ts-ignore
-      boardgameList.push(boardgameSnapshot.data())
+      boardgameList.push(boardgameSnapshot)
     })
   })
 
