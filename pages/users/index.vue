@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import FirestoreCollections from '../../plugins/firestoreCollections'
+import { UserUsecase } from '../../plugins/usecase/UserUsecase'
 
 export default {
   data() {
@@ -41,18 +41,7 @@ export default {
     }
   },
   created() {
-    const users = FirestoreCollections.users()
-    users.get().then(querySnapshot => {
-      querySnapshot.forEach(userSnapshot => {
-        const user = {
-          id: userSnapshot.data().id,
-          name: userSnapshot.data().name,
-          email: userSnapshot.data().email,
-          image: '/usericon.png'
-        }
-        this.userList.push(user)
-      })
-    })
+    this.userList = UserUsecase.findAll()
   }
 }
 </script>

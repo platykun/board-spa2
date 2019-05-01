@@ -75,9 +75,7 @@
         </v-layout>
       </v-card>
     </div>
-    <div>
-      {{ list }}
-    </div>
+    <div>{{ list }} user: {{ user }} boardGame: {{ boardGame }}</div>
   </div>
 </template>
 
@@ -88,17 +86,32 @@ export default {
   data() {
     return {
       list: [], // 最新状態はここにコピーされる
+      boardGame: '',
+      user: ''
     }
   },
   created() {
-    const users = firebase.firestore().collection('users')
+    const users = firebase.firestore().collection('records')
     users.get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
-        const data = {
-          email: doc.data().email,
-          name: doc.data().name
-        }
-        this.list.push(data)
+        // ボードゲームの参照を取得
+        // doc
+        //   .data()
+        //   .boardGameRef.get()
+        //   .then(boardGameRef => {
+        //     this.boardGame = boardGameRef.data()
+        //   })
+        // const record = {
+        //   boardGame: this.boardGame,
+        //   comment: doc.data().comment
+        // }
+        // this.list.push(record)
+        // this.user = doc
+        //   .data()
+        //   .user.get()
+        //   .then(ref => {
+        //     this.user = ref.data().name
+        //   })
       })
     })
   }
