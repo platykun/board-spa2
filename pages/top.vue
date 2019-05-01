@@ -75,15 +75,32 @@
         </v-layout>
       </v-card>
     </div>
+    <div>
+      {{ list }}
+    </div>
   </div>
 </template>
 
-<script lang="ts">
-// import Logo from '../components/Logo.vue'
-// import VuetifyLogo from '../components/VuetifyLogo.vue'
+<script>
+import firebase from '../plugins/firebase'
 
 export default {
-  // components: {
-  // }
+  data() {
+    return {
+      list: [], // 最新状態はここにコピーされる
+    }
+  },
+  created() {
+    const users = firebase.firestore().collection('users')
+    users.get().then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        const data = {
+          email: doc.data().email,
+          name: doc.data().name
+        }
+        this.list.push(data)
+      })
+    })
+  }
 }
 </script>

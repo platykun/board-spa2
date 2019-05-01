@@ -82,7 +82,16 @@ const config: NuxtConfiguration = {
         })
       }
     }
-  }
+  },
+  env: {
+    F_APIKEY: process.env.F_AUTHDOMAIN || 'AIzaSyAkzTehaWaWTS0TcdQw26ijaz7ufQuQ1pM',
+    F_AUTHDOMAIN: process.env.F_AUTHDOMAIN || 'boardgame-management.firebaseapp.com',
+    F_DATABASEURL: process.env.F_DATABASEURL || 'https://boardgame-management.firebaseio.com',
+    F_PROJECTID: process.env.F_PROJECTID || 'boardgame-management',
+    F_STORAGEBUCKET: process.env.F_STORAGEBUCKET || 'boardgame-management.appspot.com',
+    F_MESSAGINGSENDERID: process.env.F_MESSAGINGSENDERID || '249026475741'
+  },
+
 };
 
 export default config

@@ -10,13 +10,17 @@
         <h2>ログイン</h2>
       </v-card-title>
       <v-card-text>
-        <v-text-field label="ユーザID" type="text"></v-text-field>
-        <v-text-field label="パスワード" type="password"></v-text-field>
+        <v-text-field v-model="email" label="email" type="text"></v-text-field>
+        <v-text-field
+          v-model="password"
+          label="パスワード"
+          type="password"
+        ></v-text-field>
       </v-card-text>
       <v-card-actions>
         <v-layout>
           <v-spacer />
-          <v-btn to="/top" class="primary" dark>
+          <v-btn class="primary" dark @click.stop="login()">
             ログイン
           </v-btn>
         </v-layout>
@@ -25,10 +29,37 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
+import firebase from '../plugins/firebase'
+
 export default {
-  data: () => ({
-    show: true
-  })
+  data() {
+    return {
+      show: true,
+      email: '',
+      password: ''
+    }
+  },
+  mounted() {
+    firebase.auth().onAuthStateChanged(user => {
+      // this.setUser(user)
+    })
+  },
+  methods: {
+    login() {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(userCredential => {
+          // ログインしたら飛ぶページを指定
+          console.log(userCredential)
+          console.log(userCredential.user.getIdTokenResult(false).token)
+          this.$router.push('/top')
+        })
+        .catch(error => {
+          alert(error)
+        })
+    }
+  }
 }
 </script>
