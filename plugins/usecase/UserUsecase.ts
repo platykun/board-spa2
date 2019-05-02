@@ -1,4 +1,5 @@
-import {allUsers, findUserByEmail, userDocById} from "~/plugins/gateway/user/UserGateway";
+import {allUsers, findUserByEmail, setUser, userDocById} from "~/plugins/gateway/user/UserGateway";
+import {UserDto} from "~/plugins/gateway/user/UserDto";
 
 export class UserUsecase {
   static findAll() {
@@ -12,5 +13,9 @@ export class UserUsecase {
 
   static loginUserDoc(id: string) {
     userDocById(id)
+  }
+
+  static addLoginUser(userDto: UserDto) {
+    setUser(userDto)
   }
 }

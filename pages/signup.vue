@@ -12,6 +12,11 @@
       <v-card-text>
         <v-text-field v-model="email" label="email" type="text"></v-text-field>
         <v-text-field
+          v-model="name"
+          label="ユーザ名"
+          type="text"
+        ></v-text-field>
+        <v-text-field
           v-model="password"
           label="パスワード"
           type="password"
@@ -31,11 +36,14 @@
 
 <script>
 import firebase from '../plugins/firebase'
+import { UserDto } from '../plugins/gateway/user/UserDto'
+import { UserUsecase } from '../plugins/usecase/UserUsecase'
 
 export default {
   data() {
     return {
       email: '',
+      name: '',
       password: ''
     }
   },
@@ -48,17 +56,31 @@ export default {
     login() {
       firebase
         .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
+        .createUserWithEmailAndPassword(this.email, this.password)
         .then(userCredential => {
+          // ユーザ情報をfirebase側にも登録する
+          const userDto = new UserDto(this.email, this.name, '', this.email)
+          UserUsecase.addLoginUser(userDto)
+
+          // TODO ログイン時のものと同一なので共通化を検討する
           firebase
-            .database()
-            .ref('users/')
-            .once('value')
-            .then(function(snapshot) {
-              console.log(snapshot)
+            .auth()
+            .signInWithEmailAndPassword(this.email, this.password)
+            .then(userCredential => {
+              // ログインユーザのデフォルト情報をvuexに格納する
+              // TODO 外出し
+              this.$store.dispatch('updateUserDetail', {
+                id: this.email,
+                name: this.name,
+                image: '',
+                email: this.email
+              })
+
+              this.$router.push('/top')
             })
-          // ログインしたら飛ぶページを指定
-          this.$router.push('/top')
+            .catch(error => {
+              alert(error)
+            })
         })
         .catch(error => {
           alert(error)

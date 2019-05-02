@@ -6,6 +6,7 @@ export class UserDto {
     public email: string,
     public name: string,
     public image: string,
+    public id: string
   ) {
     this.records = [];
   }

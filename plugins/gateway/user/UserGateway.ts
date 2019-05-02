@@ -51,3 +51,21 @@ export const userDocById = (id: string) => {
   return FirestoreCollections.users()
     .doc(id)
 }
+
+export const setUser = (userDto: UserDto) => {
+  console.log("setuser called")
+  console.log(userDto)
+  const docData = {
+    id: userDto.id,
+    name: userDto.name,
+    image: userDto.image,
+    email: userDto.email
+  }
+
+  FirestoreCollections.users()
+    .doc(userDto.id)
+    .set(docData)
+    .then(function() {
+      console.log("Document successfully written!");
+  });
+}
