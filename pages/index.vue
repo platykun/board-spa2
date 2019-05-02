@@ -1,7 +1,7 @@
 <template>
   <v-content>
     <section>
-      <v-parallax src="/index_background.jpg" height="400">
+      <v-parallax src="/index_background.jpg">
         <v-layout column align-center justify-center class="white--text">
           <img src="/logo.png" height="200" />
           <h1 class="white--text mb-2 display-1 text-xs-center">
@@ -12,6 +12,10 @@
           </div>
           <v-btn class="accent mt-2" dark large to="/signup">
             新規登録
+          </v-btn>
+          <v-btn class="mt-2" large to="/signup">
+            <v-icon>sign-in</v-icon>
+            ログイン
           </v-btn>
         </v-layout>
       </v-parallax>

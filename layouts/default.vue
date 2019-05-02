@@ -16,6 +16,10 @@
     </v-toolbar>
     <div class="record">
       <v-tabs color="primary" dark slider-color="accent">
+        <v-tab to="/top">
+          <v-icon>home</v-icon>
+          <div class="hidden-xs-only">top</div>
+        </v-tab>
         <v-tab to="/users">
           <v-icon>group</v-icon>
           <div class="hidden-xs-only">users</div>
@@ -24,7 +28,7 @@
           <v-icon class="blue-grey--text text--darken-4">book</v-icon>
           <div class="hidden-xs-only">ボドゲ管理</div>
         </v-tab>
-        <v-tab>
+        <v-tab to="/me/update">
           <v-icon>settings</v-icon>
           <div class="hidden-xs-only">設定</div>
         </v-tab>
@@ -37,7 +41,7 @@
             <v-icon>person</v-icon>
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title>ぷらてぃ君</v-list-tile-title>
+            <v-list-tile-title>{{ name }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <template v-for="(item, index) in items">
@@ -58,7 +62,7 @@
       </v-list>
     </v-navigation-drawer>
     <nuxt />
-    <v-btn color="secondary" dark bottom fixed right fab to="/record">
+    <v-btn color="accent" dark bottom fixed right fab to="/record">
       <v-icon>add</v-icon>
     </v-btn>
     <BottomNav />
@@ -78,6 +82,7 @@ export default {
       clipped: false,
       drawer: false,
       fixed: false,
+      name: '',
       items: [
         { divider: true },
         { action: '/', title: 'ページトップ', icon: 'home' },
@@ -87,7 +92,7 @@ export default {
         { action: '/record', title: '結果入力', icon: 'home' },
         { divider: true },
         { header: 'ユーザ情報' },
-        { action: '/users', title: 'ユーザ検索', icon: 'groups' },
+        { action: '/users', title: 'ユーザ一覧', icon: 'groups' },
         { divider: true },
         { header: '共有' },
         {
@@ -110,9 +115,11 @@ export default {
       title: 'Vuetify.js'
     }
   },
+  created() {
+    this.name = this.$store.getters.name
+  },
   methods: {
     showDrawer() {
-      alert(this.drawer)
       this.drawer = true
     }
   }
