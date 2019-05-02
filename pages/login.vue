@@ -31,6 +31,8 @@
 
 <script>
 import firebase from '../plugins/firebase'
+// import { UserUsecase } from '../plugins/usecase/UserUsecase'
+import FirestoreCollections from '../plugins/firestoreCollections'
 
 export default {
   data() {
@@ -54,6 +56,22 @@ export default {
           // ログインしたら飛ぶページを指定
           console.log(userCredential)
           console.log(userCredential.user.getIdTokenResult(false).token)
+
+          // ログインユーザに紐づくユーザ情報を取得しvuexに格納する
+          // TODO 外出し
+          FirestoreCollections.users()
+            .doc(this.email)
+            .get()
+            .then(querySnapshot => {
+              const userData = querySnapshot.data()
+              this.$store.dispatch('updateUserDetail', {
+                id: userData.id,
+                name: userData.name,
+                image: userData.image,
+                email: userData.email
+              })
+            })
+
           this.$router.push('/top')
         })
         .catch(error => {

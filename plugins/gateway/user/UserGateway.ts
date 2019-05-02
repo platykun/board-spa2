@@ -14,10 +14,14 @@ export const allUsers = () => {
       userList.push(userSnapshot)
     })
   })
-
   return userList
 }
 
+/**
+ * emailをもとにユーザを検索する
+ *
+ * @param email
+ */
 export const findUserByEmail = (email: string) => {
   const usersCollections = FirestoreCollections.users()
 
@@ -36,4 +40,14 @@ export const findUserByEmail = (email: string) => {
     })
 
   return userList
+}
+
+/**
+ * IDをもとにユーザを検索する
+ *
+ * @param id
+ */
+export const userDocById = (id: string) => {
+  return FirestoreCollections.users()
+    .doc(id)
 }

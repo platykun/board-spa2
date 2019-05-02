@@ -37,11 +37,16 @@ import { UserUsecase } from '../../plugins/usecase/UserUsecase'
 export default {
   data() {
     return {
-      userList: [] // 最新状態はここにコピーされる
+      userSnapshotList: [] // 最新状態はここにコピーされる
+    }
+  },
+  computed: {
+    userList() {
+      return this.userSnapshotList.map(u => u.data())
     }
   },
   created() {
-    this.userList = UserUsecase.findAll().map(u => u.data())
+    this.userSnapshotList = UserUsecase.findAll()
   }
 }
 </script>

@@ -1,4 +1,4 @@
-import {allUsers, findUserByEmail} from "~/plugins/gateway/user/UserGateway";
+import {allUsers, findUserByEmail, userDocById} from "~/plugins/gateway/user/UserGateway";
 
 export class UserUsecase {
   static findAll() {
@@ -8,5 +8,9 @@ export class UserUsecase {
   static findUserByEmail(email: string) {
     const users = findUserByEmail(email)
     return users
+  }
+
+  static loginUserDoc(id: string) {
+    userDocById(id)
   }
 }
