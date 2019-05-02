@@ -9,64 +9,25 @@
           <v-flex xs10>
             <v-card-text>
               <div>
-                <h4 class="headline">ぷらてぃ君</h4>
-                このあたりにいろいろな情報が記載される
+                <h4 class="headline">name:{{ name }}</h4>
+                <h4 class="headline">email: {{ email }}</h4>
               </div>
             </v-card-text>
           </v-flex>
         </v-layout>
       </v-card>
-
       <h2>履歴</h2>
-      <v-card to="" class="ma-2">
+      <v-card v-for="record in records" :key="record" to="" class="ma-2">
         <v-layout>
           <v-flex xs12>
             <v-card-text>
               <div>
-                <h4 class="headline">ボードゲーム名</h4>
+                <h4 class="headline">{{ record.boardGameName }}</h4>
               </div>
               <div>
-                <span class="grey--text">2019/04/29</span>
-              </div>
-              <v-spacer />
-              <div>
-                <h4 class="grey--text">場所</h4>
-              </div>
-            </v-card-text>
-          </v-flex>
-        </v-layout>
-      </v-card>
-      <v-card to="" class="ma-2">
-        <v-layout>
-          <v-flex xs12>
-            <v-card-text>
-              <div>
-                <h4 class="headline">ボードゲーム名</h4>
-              </div>
-              <div>
-                <span class="grey--text">2019/04/29</span>
-              </div>
-              <v-spacer />
-              <div>
-                <h4 class="grey--text">場所</h4>
-              </div>
-            </v-card-text>
-          </v-flex>
-        </v-layout>
-      </v-card>
-      <v-card to="" class="ma-2">
-        <v-layout>
-          <v-flex xs12>
-            <v-card-text>
-              <div>
-                <h4 class="headline">ボードゲーム名</h4>
-              </div>
-              <div>
-                <span class="grey--text">2019/04/29</span>
-              </div>
-              <v-spacer />
-              <div>
-                <h4 class="grey--text">場所</h4>
+                <span class="grey--text">{{
+                  record.recordDate.seconds | moment
+                }}</span>
               </div>
             </v-card-text>
           </v-flex>
@@ -76,6 +37,43 @@
   </v-content>
 </template>
 
-<script lang="ts">
-export default {}
+<script>
+import FirestoreCollections from '~/plugins/firestoreCollections'
+import moment from 'moment'
+
+export default {
+  filters: {
+    moment: function(date) {
+      return moment(date * 1000).format('YYYY-MM-DD HH:mm')
+    }
+  },
+  data() {
+    return {
+      id: this.$nuxt.$route.params.id,
+      name: '',
+      email: '',
+      image: '',
+      records: []
+    }
+  },
+  created() {
+    FirestoreCollections.users()
+      .doc(this.id)
+      .get()
+      .then(user => {
+        this.name = user.data().name
+        this.email = user.data().email
+      })
+
+    FirestoreCollections.users()
+      .doc(this.id)
+      .collection('records')
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(recordSnapshot => {
+          this.records.push(recordSnapshot.data())
+        })
+      })
+  }
+}
 </script>
