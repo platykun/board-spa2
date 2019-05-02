@@ -84,7 +84,7 @@ const config: NuxtConfiguration = {
     }
   },
   env: {
-    F_APIKEY: process.env.F_AUTHDOMAIN || '',
+    F_APIKEY: process.env.F_APIKEY || '',
     F_AUTHDOMAIN: process.env.F_AUTHDOMAIN || 'boardgame-management.firebaseapp.com',
     F_DATABASEURL: process.env.F_DATABASEURL || 'https://boardgame-management.firebaseio.com',
     F_PROJECTID: process.env.F_PROJECTID || 'boardgame-management',
