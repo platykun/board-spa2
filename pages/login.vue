@@ -31,7 +31,6 @@
 
 <script>
 import firebase from '../plugins/firebase'
-// import { UserUsecase } from '../plugins/usecase/UserUsecase'
 import FirestoreCollections from '../plugins/firestoreCollections'
 
 export default {

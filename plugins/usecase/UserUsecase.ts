@@ -1,5 +1,8 @@
-import {allUsers, findUserByEmail, setUser, userDocById} from "~/plugins/gateway/user/UserGateway";
+import {addRecordDoc, allUsers, findUserByEmail, setUser, userDocById} from "~/plugins/gateway/user/UserGateway";
 import {UserDto} from "~/plugins/gateway/user/UserDto";
+import f from 'firebase'
+import DocumentSnapshot = f.firestore.DocumentSnapshot;
+import DocumentReference = f.firestore.DocumentReference;
 
 export class UserUsecase {
   static findAll() {
@@ -17,5 +20,9 @@ export class UserUsecase {
 
   static addLoginUser(userDto: UserDto) {
     setUser(userDto)
+  }
+
+  static record(id: string, boardGameName: string, boardGameSnapshot: DocumentReference, recordSnapshot: DocumentReference) {
+    return addRecordDoc(id, boardGameName, boardGameSnapshot, recordSnapshot)
   }
 }

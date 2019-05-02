@@ -10,7 +10,7 @@
         <v-card
           v-for="user in userList"
           :key="user"
-          to="/users/1/history"
+          :to="userHistoryUrl(user)"
           class="ma-2"
         >
           <v-layout>
@@ -47,6 +47,11 @@ export default {
   },
   created() {
     this.userSnapshotList = UserUsecase.findAll()
+  },
+  methods: {
+    userHistoryUrl(user) {
+      return '/users/' + user.id + '/history'
+    }
   }
 }
 </script>

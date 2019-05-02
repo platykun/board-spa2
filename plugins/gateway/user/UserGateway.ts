@@ -1,7 +1,8 @@
 import {UserDto} from "./UserDto";
 import FirestoreCollections from "~/plugins/firestoreCollections";
-import * as firebase from "firebase";
-import DocumentData = firebase.firestore.DocumentData;
+import f from "firebase";
+import DocumentSnapshot = f.firestore.DocumentSnapshot;
+import DocumentReference = f.firestore.DocumentReference;
 
 export const allUsers = () => {
   const usersCollections = FirestoreCollections.users()
@@ -68,4 +69,19 @@ export const setUser = (userDto: UserDto) => {
     .then(function() {
       console.log("Document successfully written!");
   });
+}
+
+
+export const addRecordDoc = (id: string, boardGameName: string, boardGame: DocumentReference, record: DocumentReference) => {
+  const insertRecord = {
+    recordRef: record,
+    // @ts-ignore
+    recordDate: new Date(),
+    boardGameRef: boardGame,
+    // @ts-ignore
+    boardGameName: boardGameName
+  }
+
+  console.log(insertRecord)
+  return FirestoreCollections.users().doc(id).collection('records').add(insertRecord)
 }

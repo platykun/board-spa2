@@ -2,7 +2,7 @@
   <div class="container">
     <div class="flex xs12 sm8 offset-sm2">
       <h2>トップ画面</h2>
-      <v-card to="" class="ma-2">
+      <v-card v-for="record in records" :key="record" to="" class="ma-2">
         <v-layout>
           <v-flex xs2>
             <v-img src="/usericon.png" contain></v-img>
@@ -10,58 +10,10 @@
           <v-flex xs10>
             <v-card-text>
               <div>
-                <h4 class="headline">名前</h4>
+                <h4 class="headline">{{ record.user.name }}</h4>
               </div>
               <div>
-                <h4 class="headline">ボードゲーム名</h4>
-              </div>
-              <div>
-                <span class="grey--text">2019/04/29</span>
-              </div>
-              <v-spacer />
-              <div>
-                <h4 class="grey--text">場所</h4>
-              </div>
-            </v-card-text>
-          </v-flex>
-        </v-layout>
-      </v-card>
-      <v-card to="" class="ma-2">
-        <v-layout>
-          <v-flex xs2>
-            <v-img src="/usericon.png" contain></v-img>
-          </v-flex>
-          <v-flex xs10>
-            <v-card-text>
-              <div>
-                <h4 class="headline">名前</h4>
-              </div>
-              <div>
-                <h4 class="headline">ボードゲーム名</h4>
-              </div>
-              <div>
-                <span class="grey--text">2019/04/29</span>
-              </div>
-              <v-spacer />
-              <div>
-                <h4 class="grey--text">場所</h4>
-              </div>
-            </v-card-text>
-          </v-flex>
-        </v-layout>
-      </v-card>
-      <v-card to="" class="ma-2">
-        <v-layout>
-          <v-flex xs2>
-            <v-img src="/usericon.png" contain></v-img>
-          </v-flex>
-          <v-flex xs10>
-            <v-card-text>
-              <div>
-                <h4 class="headline">名前</h4>
-              </div>
-              <div>
-                <h4 class="headline">ボードゲーム名</h4>
+                <h4 class="headline">{{ record.boardGame.name }}</h4>
               </div>
               <div>
                 <span class="grey--text">2019/04/29</span>
@@ -75,43 +27,27 @@
         </v-layout>
       </v-card>
     </div>
-    <div>{{ list }} user: {{ user }} boardGame: {{ boardGame }}</div>
   </div>
 </template>
 
 <script>
-import firebase from '../plugins/firebase'
+import FirestoreCollections from '../plugins/firestoreCollections'
 
 export default {
   data() {
     return {
-      list: [], // 最新状態はここにコピーされる
+      records: [],
       boardGame: '',
       user: ''
     }
   },
   created() {
-    const users = firebase.firestore().collection('records')
-    users.get().then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        // ボードゲームの参照を取得
-        // doc
-        //   .data()
-        //   .boardGameSnapshot.get()
-        //   .then(boardGameSnapshot => {
-        //     this.boardGame = boardGameSnapshot.data()
-        //   })
-        // const record = {
-        //   boardGame: this.boardGame,
-        //   comment: doc.data().comment
-        // }
-        // this.list.push(record)
-        // this.user = doc
-        //   .data()
-        //   .user.get()
-        //   .then(ref => {
-        //     this.user = ref.data().name
-        //   })
+    const recordCollections = FirestoreCollections.records()
+
+    recordCollections.get().then(querySnapshot => {
+      querySnapshot.forEach(recordSnapshot => {
+        // @ts-ignore
+        this.records.push(recordSnapshot.data())
       })
     })
   }

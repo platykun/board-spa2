@@ -62,10 +62,8 @@ export default {
     }
   },
   created() {
-    // TODO 以下べたがきされているメールアドレスはログイン時のものを利用
-    this.loginUserSnapshot = UserUsecase.findUserByEmail(
-      'nagonago561@yahoo.co.jp'
-    )
+    const loginEmail = this.$store.getters.email
+    this.loginUserSnapshot = UserUsecase.findUserByEmail(loginEmail)
     this.boardgameSnapshot = BoardgameUsecase.findAll()
     for (const boardgameRef in this.boardgameSnapshot) {
       this.boardgames.add(boardgameRef.data().name)
@@ -78,6 +76,7 @@ export default {
         b => b.data().name === this.boardgame
       )[0]
 
+      // 結果コレクションに登録
       const result = new RecordDto(
         boardGameRef,
         this.boardgame,
@@ -87,14 +86,16 @@ export default {
         this.stars,
         new Date()
       )
-      RecordUsecase.record(result)
-      // RecordUsecase.ts.record()
-      // const records = FirestoreCollections.records()
-      //
-      // records.add({
-      //   name: 'Tokyo',
-      //   country: 'Japan'
-      // })
+
+      RecordUsecase.record(result).then(record => {
+        UserUsecase.record(
+          this.$store.getters.id,
+          boardGameRef.data().name,
+          boardGameRef.ref,
+          record
+        )
+      })
+
       this.$router.push('/top')
     }
   }

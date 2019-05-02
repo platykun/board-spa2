@@ -25,8 +25,8 @@
       <v-card-actions>
         <v-layout>
           <v-spacer />
-          <v-btn class="primary" dark @click.stop="login()">
-            ログイン
+          <v-btn class="primary" dark @click.stop="signup()">
+            ユーザ作成
           </v-btn>
         </v-layout>
       </v-card-actions>
@@ -53,7 +53,7 @@ export default {
     })
   },
   methods: {
-    login() {
+    signup() {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
