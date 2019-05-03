@@ -65,22 +65,27 @@ export default {
           // TODO ログイン時のものと同一なので共通化を検討する
           firebase
             .auth()
-            .signInWithEmailAndPassword(this.email, this.password)
-            .then(userCredential => {
-              // ログインユーザのデフォルト情報をvuexに格納する
-              // TODO 外出し
-              this.$store.dispatch('updateUserDetail', {
-                id: this.email,
-                name: this.name,
-                image: '',
-                email: this.email
-              })
+            .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+            .then(
+              firebase
+                .auth()
+                .signInWithEmailAndPassword(this.email, this.password)
+                .then(userCredential => {
+                  // ログインユーザのデフォルト情報をvuexに格納する
+                  // TODO 外出し
+                  this.$store.dispatch('updateUserDetail', {
+                    id: this.email,
+                    name: this.name,
+                    image: '',
+                    email: this.email
+                  })
 
-              this.$router.push('/top')
-            })
-            .catch(error => {
-              alert(error)
-            })
+                  this.$router.push('/top')
+                })
+                .catch(error => {
+                  alert(error)
+                })
+            )
         })
         .catch(error => {
           alert(error)

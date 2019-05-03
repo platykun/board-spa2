@@ -24,7 +24,8 @@
     "ts-node": "^8.1.0",
     "vue-property-decorator": "latest",
     "vuetify": "^1.5.5",
-    "vuetify-loader": "^1.2.1"
+    "vuetify-loader": "^1.2.1",
+    "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
     "@nuxt/typescript": "^2.6.3",

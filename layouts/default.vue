@@ -10,7 +10,7 @@
       <v-spacer />
       <div>
         <v-avatar size="40" @click.stop="drawer = !drawer">
-          <v-img src="/usericon.png" contain></v-img>
+          <userIcon :userid="loginId"></userIcon>
         </v-avatar>
       </div>
     </v-toolbar>
@@ -41,7 +41,7 @@
             <v-icon>person</v-icon>
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title>{{ name }}</v-list-tile-title>
+            <v-list-tile-title>{{ loginName }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <template v-for="(item, index) in items">
@@ -59,6 +59,17 @@
             {{ item.header }}
           </v-subheader>
         </template>
+        <template>
+          <v-divider key="logoutdivider" />
+          <v-list-tile :key="logout" @click.stop="logoutAction">
+            <v-list-tile-action>
+              <v-icon>directions_run</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>ログアウト</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </template>
       </v-list>
     </v-navigation-drawer>
     <nuxt />
@@ -71,10 +82,13 @@
 
 <script>
 import BottomNav from '../components/BottomNav'
+import firebase from '../plugins/firebase'
+import userIcon from '~/components/atoms/userIcon'
 
 export default {
   components: {
-    BottomNav: BottomNav
+    BottomNav: BottomNav,
+    userIcon: userIcon
   },
   data() {
     return {
@@ -106,8 +120,7 @@ export default {
           action: '/tutorial',
           title: 'チュートリアル',
           icon: 'contact_support'
-        },
-        { action: '/logout', title: 'ログアウト', icon: 'directions_run' }
+        }
       ],
       miniVariant: false,
       right: true,
@@ -118,9 +131,27 @@ export default {
   created() {
     this.name = this.$store.getters.name
   },
+  computed: {
+    loginName() {
+      return this.$store.getters.name
+    },
+    loginId() {
+      return this.$store.getters.id
+    }
+  },
   methods: {
     showDrawer() {
       this.drawer = true
+    },
+    logoutAction() {
+      firebase
+        .auth()
+        .signOut()
+        .then(function() {
+          console.log('sign out success')
+        })
+      this.$store.dispatch('clearUserDetail')
+      this.$router.push('/')
     }
   }
 }
