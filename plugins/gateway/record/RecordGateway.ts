@@ -12,6 +12,7 @@ export const addRecord = (recordDto: RecordDto) => {
     },
     user: {
       ref:recordDto.userSnapshot.ref,
+      id: recordDto.userId,
       name: recordDto.userName
     },
     star: recordDto.star,

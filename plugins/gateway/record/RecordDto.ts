@@ -9,6 +9,7 @@ export class RecordDto {
     public boardGameSnapshot: DocumentSnapshot,
     public boardGameName: string,
     public userSnapshot: DocumentSnapshot,
+    public userId: string,
     public userName: string,
     public comment: string,
     public star: string,

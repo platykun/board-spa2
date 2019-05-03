@@ -5,7 +5,7 @@
       <v-card v-for="record in records" :key="record" to="" class="ma-2">
         <v-layout>
           <v-flex xs2>
-            <v-img src="/usericon.png" contain></v-img>
+            <userIcon :userid="record.user.id"></userIcon>
           </v-flex>
           <v-flex xs10>
             <v-card-text>
@@ -32,8 +32,12 @@
 
 <script>
 import FirestoreCollections from '../plugins/firestoreCollections'
+import userIcon from '~/components/atoms/userIcon'
 
 export default {
+  components: {
+    userIcon: userIcon
+  },
   data() {
     return {
       records: [],

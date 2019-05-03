@@ -15,7 +15,7 @@
         >
           <v-layout>
             <v-flex xs2>
-              <v-img :src="user.image" contain></v-img>
+              <userIcon :userid="user.id"></userIcon>
             </v-flex>
             <v-flex xs10>
               <v-card-text>
@@ -33,8 +33,12 @@
 
 <script>
 import { UserUsecase } from '../../plugins/usecase/UserUsecase'
+import userIcon from '~/components/atoms/userIcon'
 
 export default {
+  components: {
+    userIcon: userIcon
+  },
   data() {
     return {
       userSnapshotList: [] // 最新状態はここにコピーされる

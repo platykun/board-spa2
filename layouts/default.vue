@@ -36,7 +36,7 @@
     </div>
     <v-navigation-drawer v-model="drawer" absolute temporary>
       <v-list dense>
-        <v-list-tile avatar>
+        <v-list-tile avatar to="/me">
           <v-list-tile-avatar>
             <v-icon>person</v-icon>
           </v-list-tile-avatar>

@@ -18,9 +18,9 @@
         label="コメント"
         value=""
       ></v-textarea>
-      <h3>評価</h3>
+      <h3>評価 (未実装)</h3>
       <div>
-        <v-icon color="amber lighten-1">grade</v-icon>
+        <v-icon color="accent">grade</v-icon>
         <v-icon>grade</v-icon>
         <v-icon>grade</v-icon>
         <v-icon>grade</v-icon>
@@ -28,7 +28,7 @@
       </div>
       <v-layout>
         <v-spacer />
-        <v-btn class="primary" dark @click.stop="submitRecord()">
+        <v-btn class="accent" dark @click.stop="submitRecord()">
           <v-icon>add</v-icon>
           記録
         </v-btn>
@@ -81,6 +81,7 @@ export default {
         boardGameRef,
         this.boardgame,
         this.loginUserSnapshot[0],
+        this.loginUserSnapshot[0].data().id,
         this.loginUserSnapshot[0].data().name,
         this.comment,
         this.stars,

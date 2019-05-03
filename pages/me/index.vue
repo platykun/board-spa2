@@ -2,61 +2,38 @@
   <v-content>
     <div class="container">
       <h2>ユーザ情報更新</h2>
+      {{ url }}
     </div>
-    <v-flex
-      xs12
-      class="text-xs-center text-sm-center text-md-center text-lg-center"
-    >
-      <img v-if="imageUrl" :src="imageUrl" height="150" />
-      <v-text-field
-        v-model="imageName"
-        label="Select Image"
-        prepend-icon="attach_file"
-        @click="pickFile"
-      ></v-text-field>
-      <input
-        ref="image"
-        type="file"
-        style="display: none"
-        accept="image/*"
-        @change="onFilePicked"
-      />
-    </v-flex>
+    <userIcon userid=""></userIcon>
+    <img v-if="imageUrl" :src="imageUrl" height="150" />
+    <v-img :src="url" contain></v-img>
+    <v-btn @click.stop="getIcon()"></v-btn>
   </v-content>
 </template>
 
 <script>
+import userIcon from '~/components/atoms/userIcon'
+
 export default {
+  components: {
+    userIcon: userIcon
+  },
   data() {
     return {
-      imageUrl: '',
-      imageName: '',
-      boardgame: '',
-      boardgames: ['hoge', 'piyo']
+      url: '',
+      imageUrl: ''
     }
   },
   methods: {
-    pickFile() {
-      this.$refs.image.click()
-    },
-    onFilePicked(e) {
-      const files = e.target.files
-      if (files[0] !== undefined) {
-        this.imageName = files[0].name
-        if (this.imageName.lastIndexOf('.') <= 0) {
-          return
-        }
-        const fr = new FileReader()
-        fr.readAsDataURL(files[0])
-        fr.addEventListener('load', () => {
-          this.imageUrl = fr.result
-          this.imageFile = files[0] // this is an image file that can be sent to server...
-        })
-      } else {
-        this.imageName = ''
-        this.imageFile = ''
-        this.imageUrl = ''
-      }
+    getIcon() {
+      // const firebaseStorage = firebase.storage()
+      //
+      // this.url = firebaseStorage
+      //   .ref('icons/' + 'nagonago561@yahoo.co.jp')
+      //   .getDownloadURL()
+      //   .then(url => {
+      //     this.url = url.toString()
+      //   })
     }
   }
 }

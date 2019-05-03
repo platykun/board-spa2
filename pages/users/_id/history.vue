@@ -4,7 +4,7 @@
       <v-card to="" class="ma-2">
         <v-layout>
           <v-flex xs2>
-            <v-img src="/usericon.png" contain></v-img>
+            <userIcon :userid="id"></userIcon>
           </v-flex>
           <v-flex xs10>
             <v-card-text>
@@ -39,9 +39,13 @@
 
 <script>
 import FirestoreCollections from '~/plugins/firestoreCollections'
+import userIcon from '~/components/atoms/userIcon'
 import moment from 'moment'
 
 export default {
+  components: {
+    userIcon: userIcon
+  },
   filters: {
     moment: function(date) {
       return moment(date * 1000).format('YYYY-MM-DD HH:mm')
