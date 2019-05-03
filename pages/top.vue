@@ -1,27 +1,20 @@
 <template>
   <div class="container">
     <div class="flex xs12 sm8 offset-sm2">
-      <h2>トップ画面</h2>
       <v-card v-for="record in records" :key="record" to="" class="ma-2">
-        <v-layout>
+        <v-layout align-center>
           <v-flex xs2>
             <userIcon :userid="record.user.id"></userIcon>
           </v-flex>
           <v-flex xs10>
             <v-card-text>
-              <div>
-                <h4 class="headline">{{ record.user.name }}</h4>
-              </div>
-              <div>
-                <h4 class="headline">{{ record.boardGame.name }}</h4>
-              </div>
-              <div>
-                <span class="grey--text">2019/04/29</span>
-              </div>
-              <v-spacer />
-              <div>
-                <h4 class="grey--text">場所</h4>
-              </div>
+              <h3 class="headline primary--text">
+                {{ record.boardGame.name }}
+              </h3>
+              <h4 class="secondary--text">{{ record.user.name }}</h4>
+              <h4 class="secondary--text">
+                {{ record.createAt.seconds | moment }}
+              </h4>
             </v-card-text>
           </v-flex>
         </v-layout>
@@ -31,12 +24,18 @@
 </template>
 
 <script>
+import moment from 'moment'
 import FirestoreCollections from '../plugins/firestoreCollections'
 import userIcon from '~/components/atoms/userIcon'
 
 export default {
   components: {
     userIcon: userIcon
+  },
+  filters: {
+    moment: function(date) {
+      return moment(date * 1000).format('YYYY-MM-DD HH:mm')
+    }
   },
   data() {
     return {

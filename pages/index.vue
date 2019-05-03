@@ -20,6 +20,42 @@
         </v-layout>
       </v-parallax>
     </section>
+    <section>
+      <v-layout column wrap class="my-5" align-center>
+        <v-flex xs12 sm4 class="my-3">
+          <div class="text-xs-center">
+            <h2 class="headline">Board Game Managementでできること</h2>
+          </div>
+        </v-flex>
+        <v-flex xs12>
+          <v-container grid-list-xl>
+            <v-layout row wrap align-center>
+              <v-flex
+                v-for="description in descriptions"
+                :key="description"
+                xs12
+                md4
+              >
+                <v-card class="elevation-0 transparent">
+                  <v-card-text class="text-xs-center">
+                    <v-icon class="accent--text">{{ description.icon }}</v-icon>
+                  </v-card-text>
+                  <v-card-title primary-title class="layout justify-center">
+                    <div class="headline text-xs-center">
+                      {{ description.title }}
+                    </div>
+                  </v-card-title>
+                  <v-card-text>
+                    {{ description.desc }}
+                  </v-card-text>
+                </v-card>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-flex>
+      </v-layout>
+    </section>
+    <v-divider></v-divider>
     <div class="container">
       <div class="flex xs12 sm8 offset-sm2">
         <h2>履歴</h2>
@@ -65,7 +101,24 @@ export default {
     return {
       records: [],
       boardGame: '',
-      user: ''
+      user: '',
+      descriptions: [
+        {
+          icon: 'edit',
+          title: '記録する',
+          desc: '遊んだボードゲームを記録できます'
+        },
+        {
+          icon: 'group',
+          title: '閲覧する',
+          desc: '他の人の記録が見れます'
+        },
+        {
+          icon: 'category',
+          title: '管理する',
+          desc: '持っているボードゲームを登録できます'
+        }
+      ]
     }
   },
   created() {
