@@ -34,6 +34,7 @@ import firebase from '../plugins/firebase'
 import FirestoreCollections from '../plugins/firestoreCollections'
 
 export default {
+  layout: 'initial',
   data() {
     return {
       show: true,

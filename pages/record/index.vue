@@ -1,7 +1,36 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-content>
     <div class="container">
       <h2>記録</h2>
+      <v-layout>
+        <v-spacer />
+        <v-dialog v-model="dialog" persistent max-width="600px">
+          <template v-slot:activator="{ on }">
+            <v-btn class="secondary" v-on="on">
+              <v-icon>add</v-icon>
+              ボードゲームの追加
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-title>
+              <span class="headline">ボードゲームの追加</span>
+            </v-card-title>
+            <v-card-text>
+              <v-text-field
+                v-model="submitBoardGameName"
+                outline
+                label="ボードゲーム名"
+                required
+              ></v-text-field>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn flat @click="dialog = false">閉じる</v-btn>
+              <v-btn color="accent" dark @click="submitBoardGame">登録</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-layout>
       <v-autocomplete
         ref="boardgame-name"
         v-model="boardgame"
@@ -49,9 +78,11 @@ export default {
       stars: '1',
       boardgame: '',
       comment: '',
-      boardgames: ['hoge', 'piyo'],
+      boardgames: [],
       loginUserSnapshot: [],
-      boardgameSnapshot: []
+      boardgameSnapshot: [],
+      dialog: false,
+      submitBoardGameName: ''
     }
   },
   computed: {
@@ -98,6 +129,16 @@ export default {
       })
 
       this.$router.push('/top')
+    },
+    submitBoardGame() {
+      BoardgameUsecase.submit(this.submitBoardGameName).then(record => {
+        this.dialog = false
+        this.boardgameSnapshot = BoardgameUsecase.findAll()
+        for (const boardgameRef in this.boardgameSnapshot) {
+          this.boardgames.add(boardgameRef.data().name)
+        }
+        this.boardgame = this.submitBoardGameName
+      })
     }
   }
 }

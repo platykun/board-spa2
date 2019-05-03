@@ -14,3 +14,9 @@ export const allBoardgames = () => {
 
   return boardgameList
 }
+
+export const submitBoardgame = (boardgameName: string) => {
+  return FirestoreCollections.boardgames().add({
+    name: boardgameName
+  })
+}

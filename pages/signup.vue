@@ -40,6 +40,7 @@ import { UserDto } from '../plugins/gateway/user/UserDto'
 import { UserUsecase } from '../plugins/usecase/UserUsecase'
 
 export default {
+  layout: 'initial',
   data() {
     return {
       email: '',

@@ -57,6 +57,7 @@ import FirestoreCollections from '../plugins/firestoreCollections'
 import userIcon from '~/components/atoms/userIcon'
 
 export default {
+  layout: 'initial',
   components: {
     userIcon: userIcon
   },
